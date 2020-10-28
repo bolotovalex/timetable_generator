@@ -1,38 +1,19 @@
-#!/usr/bin/python3
 from tkinter import *
 
-def add_row():
-    global row_position, spec, kab, mon, tue, wed, thu, fri, result_list, lbl_spec, lbl_kab, lbl_mon, lbl_tue, lbl_wed, lbl_thu, lbl_fri
-    row_position += 1
-    lbl_spec = Label(window, text=spec.get(), font=("Arial Bold", 14), width=20)
-    lbl_spec.grid(column=1, row=row_position)
-    lbl_kab = Label(window, text=kab.get(), font=("Arial Bold", 14), width=10)
-    lbl_kab.grid(column=2, row=row_position)
-    lbl_mon = Label(window, text=mon.get(), font=("Arial Bold", 14), width=10)
-    lbl_mon.grid(column=3, row=row_position)
-    lbl_tue = Label(window, text=tue.get(), font=("Arial Bold", 14), width=10)
-    lbl_tue.grid(column=4, row=row_position)
-    lbl_wed = Label(window, text=wed.get(), font=("Arial Bold", 14), width=10)
-    lbl_wed.grid(column=5, row=row_position)
-    lbl_thu = Label(window, text=thu.get(), font=("Arial Bold", 14), width=10)
-    lbl_thu.grid(column=6, row=row_position)
-    lbl_fri = Label(window, text=fri.get(), font=("Arial Bold", 14), width=10)
-    lbl_fri.grid(column=7, row=row_position)
-    lbl_no = Label(window, text=row_position-4, font=("Arial Bold", 14), width=2)
-    lbl_no.grid(column=0, row=row_position)
-    list_for_add = [spec.get(), kab.get(), mon.get(), tue.get(), wed.get(), thu.get(), fri.get()]
-    result_list.append(list_for_add)
+def main_window():
+    #Buttons
+    btn_add = Button(window, text="Добавить", width=20, command=add_button)
+    btn_add.grid(column=2, row=0)
+    btn_edit = Button(window, text="Реактировать", width=20, command=edit_button)
+    btn_edit.grid(column=3, row=0)
+    btn_delete = Button(window, text="Удалить", width=20, command=delete_button)
+    btn_delete.grid(column=4, row=0)
+    btn_save = Button(window, text="Сохранить", width=20, command=save_button)
+    btn_save.grid(column=5, row=0)
+    btn_exit = Button(window, text="Вход", width=20, command=exit_button)
+    btn_exit.grid(column=6, row=0)
 
-def save_result():
-    global result_list, row_position
-    if row_position > 4:
-        print(result_list)
-
-def head_program():
-    global row_position, spec, kab, mon, tue, wed, thu, fri, result_list
-
-    lbl = Label(window, text="Добавление значений поля:", font=("Arial Bold", 14), width=30)
-    lbl.grid(column=1, row=0)
+    #Head
     lbl = Label(window, text="Специалист", font=("Arial Bold", 14), width=20)
     lbl.grid(column=1, row=1)
     lbl = Label(window, text="Кабинет", font=("Arial Bold", 14), width=10)
@@ -48,39 +29,79 @@ def head_program():
     lbl = Label(window, text="ПТ", font=("Arial Bold", 14), width=10)
     lbl.grid(column=7, row=1)
 
+    create_timetable()
 
+def create_timetable():
+    global row_position, spec, kab, mon, tue, wed, thu, fri
+    print(row_position)
+    for key, value in dictionary.items():
+        lbl = Label(window, text=key, font=("Arial Bold", 14), width=3)
+        lbl.grid(column=0, row=key+1)
+        lbl = Label(window, text=value[0], font=("Arial Bold", 14), width=20)
+        lbl.grid(column=1, row=key+1)
+        lbl = Label(window, text=value[1], font=("Arial Bold", 14), width=10)
+        lbl.grid(column=2, row=key+1)
+        lbl = Label(window, text=value[2], font=("Arial Bold", 14), width=10)
+        lbl.grid(column=3, row=key+1)
+        lbl = Label(window, text=value[3], font=("Arial Bold", 14), width=10)
+        lbl.grid(column=4, row=key+1)
+        lbl = Label(window, text=value[4], font=("Arial Bold", 14), width=10)
+        lbl.grid(column=5, row=key+1)
+        lbl = Label(window, text=value[5], font=("Arial Bold", 14), width=10)
+        lbl.grid(column=6, row=key+1)
+        lbl = Label(window, text=value[6], font=("Arial Bold", 14), width=10)
+        lbl.grid(column=7, row=key+1)
+
+    lenght = len(dictionary) + 1
     spec = Entry(window, width=20)
-    spec.grid(column=1, row=2)
+    spec.grid(column=1, row=row_position + 1)
     kab = Entry(window, width=12)
-    kab.grid(column=2, row=2)
+    kab.grid(column=2, row=row_position + 1)
     mon = Entry(window, width=12)
-    mon.grid(column=3, row=2)
+    mon.grid(column=3, row=row_position + 1)
     tue = Entry(window, width=12)
-    tue.grid(column=4, row=2)
+    tue.grid(column=4, row=row_position + 1)
     wed = Entry(window, width=12)
-    wed.grid(column=5, row=2)
+    wed.grid(column=5, row=row_position + 1)
     thu = Entry(window, width=12)
-    thu.grid(column=6, row=2)
+    thu.grid(column=6, row=row_position + 1)
     fri = Entry(window, width=12)
-    fri.grid(column=7, row=2)
-    lbl = Label(window, text="Расписание:", font=("Arial Bold", 14), width=20)
-    lbl.grid(column=1, row=3)
-    btn_add = Button(window, text="Добавить строку", width=20, command=add_row)
-    btn_add.grid(column=8, row=2)
-    btn_save = Button(window, text="Сохранить", width=20, command=save_result)
-    btn_save.grid(column=8, row=1)
+    fri.grid(column=7, row=row_position + 1)
 
-    global row_position
-    row_position = 4
+def add_button():
+    global row_position, spec, kab, mon, tue, wed, thu, fri
+    dictionary[row_position] = [spec.get(), kab.get(), mon.get(), tue.get(), wed.get(), thu.get(), fri.get()]
+    spec.destroy()
+    kab.destroy()
+    mon.destroy()
+    tue.destroy()
+    wed.destroy()
+    thu.destroy()
+    fri.destroy()
+    row_position += 1
+    create_timetable()
+    print(dictionary)
 
-# Press the green button in the gutter to run the script.
+def edit_button():
+    pass
+def delete_button():
+    pass
+def save_button():
+    pass
+def exit_button():
+    exit()
+
 if __name__ == '__main__':
-    row_position = 0
+    #dictionary = {1: ['ima', 'kab', 'pn', 'vt', 'sr', 'ct', 'pt'], 2: ['ima2', 'kab2', 'pn2', 'vt2', 'sr2', 'ct2', 'pt2']}
+    dictionary={}
+    file_path = 'index.html'
+    row_position = 1
     result_list = []
     window = Tk()
-    window.geometry('1200x768')
+    window.geometry('1280x768')
     window.title("Создание расписания")
-    head_program()
+    main_window()
     window.mainloop()
+
 
 
