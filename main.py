@@ -86,16 +86,37 @@ def edit_button():
     pass
 def delete_button():
     pass
+
 def save_button():
-    pass
+    with open(file_txt, 'w', encoding='utf-8') as save_file:
+        for key, value in dictionary.items():
+            save_file.write(f"{key}%{value[0]}%{value[1]}%{value[2]}%{value[3]}%{value[4]}%{value[5]}%{value[6]}%\n")
+        save_file.close()
+
 def exit_button():
     exit()
 
 if __name__ == '__main__':
-    #dictionary = {1: ['ima', 'kab', 'pn', 'vt', 'sr', 'ct', 'pt'], 2: ['ima2', 'kab2', 'pn2', 'vt2', 'sr2', 'ct2', 'pt2']}
-    dictionary={}
+    file_txt = 'save.txt'
+    dictionary = {}
+    try:
+        file = open(file_txt)
+    except IOError as e:
+        with open(file_txt, 'w', encoding='utf-8') as project:
+            project.close()
+
+    with open(file_txt, 'r', encoding='utf-8') as project:
+        text = project.read().split('\n')
+
+    for line in text:
+        line = line.split('%')
+        if len(line) > 1:
+            dictionary[int(line[0])] = [line[1], line[2], line[3], line[4], line[5], line[6], line[7]]
+    print(dictionary)
+            #dictionary = {1: ['ima', 'kab', 'pn', 'vt', 'sr', 'ct', 'pt'], 2: ['ima2', 'kab2', 'pn2', 'vt2', 'sr2', 'ct2', 'pt2']}
+
     file_path = 'index.html'
-    row_position = 1
+    row_position = len(dictionary) + 1
     result_list = []
     window = Tk()
     window.geometry('1280x768')
