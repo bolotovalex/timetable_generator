@@ -10,7 +10,7 @@ def main_window():
     btn_delete.grid(column=4, row=0)
     btn_save = Button(window, text="Сохранить", width=20, command=save_button)
     btn_save.grid(column=5, row=0)
-    btn_exit = Button(window, text="Вход", width=20, command=exit_button)
+    btn_exit = Button(window, text="Выход", width=20, command=exit_button)
     btn_exit.grid(column=6, row=0)
 
     #Head
@@ -92,12 +92,90 @@ def save_button():
         for key, value in dictionary.items():
             save_file.write(f"{key}%{value[0]}%{value[1]}%{value[2]}%{value[3]}%{value[4]}%{value[5]}%{value[6]}%\n")
         save_file.close()
+    first_part_file = """<!DOCTYPE html>
+<html>
+<head>
+<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="style.css">
+<title>Расписание работы</title>
+</head>
+
+<body>
+<header>
+<div class="header__row">
+<div class="header__name">Специалист</div>
+<div class="header__cabinet">Кабинет</div>
+<div class="header__day">Пн</div>
+<div class="header__day">Вт</div>
+<div class="header__day">Ср</div>
+<div class="header__day">Чт</div>
+<div class="header__day">Пт</div>
+</div>
+</header>
+
+<div class="slideshow-container">"""
+    raspisanie_section = ''
+    result_list = []
+    for key, value in dictionary.items():
+        result_list.append(value)
+
+    raspisanie_section = ''
+    for i in range(len(result_list)):
+        if i % 10 == 0:
+            raspisanie_section += '<div class="mySlides fade">\n'
+        raspisanie_section += (
+            f'<div class="main__row">\n<div class="main__name">{result_list[i][0]}</div>\n<div class="main__cabinet">{result_list[i][1]}</div>\n<div class="main__time">{result_list[i][2]}</div>\n<div class="main__time">{result_list[i][3]}</div>\n<div class="main__time">{result_list[i][4]}</div>\n<div class="main__time">{result_list[i][5]}</div>\n<div class="main__time">{result_list[i][6]}</div>\n</div>\n')
+        if i % 9 == 0 and i > 0:
+            raspisanie_section += '</div>\n'
+        elif i == len(result_list) - 1:
+            raspisanie_section += '</div>\n'
+    raspisanie_section += (f'</div>\n<br>\n<div style="text-align:center">\n')
+
+    #Count slides
+    for i in range(0,(len(result_list) // 10 + 1)):
+        raspisanie_section += (f'<span class="dot"></span>')
+    last_part_file = '''<!--<span class="dot"></span> -->
+</div>
+
+<script>
+var slideIndex = 0;
+showSlides();
+function showSlides() {
+var i;
+var slides = document.getElementsByClassName("mySlides");
+var dots = document.getElementsByClassName("dot");
+for (i = 0; i < slides.length; i++) {
+slides[i].style.display = "none";
+}
+slideIndex++;
+if (slideIndex > slides.length) { slideIndex = 1 }
+for (i = 0; i < dots.length; i++) {
+dots[i].className = dots[i].className.replace(" active", "");
+}
+slides[slideIndex - 1].style.display = "block";
+dots[slideIndex - 1].className += " active";
+setTimeout(showSlides, 3000); // Меняйте изображение каждые 2 секунды
+}
+</script>
+</body>
+</html>'''
+
+    with open(file_index, 'w', encoding='utf-8') as project:
+        project.write(first_part_file)
+        project.write(raspisanie_section)
+        project.write(last_part_file)
+        project.close()
 
 def exit_button():
     exit()
 
 if __name__ == '__main__':
     file_txt = 'save.txt'
+    file_index = 'index.html'
     dictionary = {}
     try:
         file = open(file_txt)

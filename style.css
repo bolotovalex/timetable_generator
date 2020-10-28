@@ -1,0 +1,152 @@
+* {font-family: roboto, sans-serif;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 1.7vw;}
+
+    html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+a {
+    text-decoration: none;
+}
+
+body {font-family: Verdana, sans-serif;
+	background-image: url("bg.jpg");
+  	background-color: #1a5582;    
+  	background-repeat: no-repeat;
+  	background-size: 100vw;
+    }
+.mySlides {display: none;}
+img {vertical-align: middle;}
+.header__row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    height: 4.875vw;
+    border-bottom: 0.260vw solid #fff;
+}
+.header__name, .main__name {
+    width: 25vw;
+    border-right: 0.260vw solid rgba(0, 0, 0, 0.24);
+}
+.header__name {
+    padding: 1.18vw 1.042vw;
+    font-size: 1.615vw;
+}
+.header__cabinet {
+    padding: 1.18vw 0.5vw;
+    text-align: center;
+    
+}
+.header__cabinet, .main__cabinet {
+    width: 8vw;
+    border-right: 0.260vw solid rgba(0, 0, 0, 0.24);
+    text-align: center;
+}
+.header__day, .main__time {
+    width: 12vw;
+    text-align: center;
+    border-right: 0.260vw solid rgba(0, 0, 0, 0.24);
+}
+.header__day {
+    padding: 1.18vw 0;
+}
+
+.main__time {
+    padding: 1.333vw 0;
+}
+.header__day:last-child, .main__time:last-child {
+    border-right: 0;
+    margin-right: 0.4vw;
+}
+.main__row {
+    display: flex;
+    justify-content: space-between;
+}
+.main__row:nth-child(2n) {
+    background: rgba(0, 0, 0, 0.24);
+}
+.main__name, .main__cabinet {
+     padding: 1.333vw 1.042vw;
+ }
+/* Контейнер слайд-шоу */
+.slideshow-container {
+  background-color: #1a5582;    
+  background-repeat: no-repeat;
+  background-size: 100vw;
+  /*max-width: 1000px;
+  position: relative;
+  margin: auto;*/
+}
+
+/* Подпись текста */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Номер текста (1/3 и т.д.) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Точки/пули/индикаторы */
+.dot {
+  height: 0px;
+  width: 0px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #717171;
+}
+
+/* Исчезающая анимация */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* На небольших экранах уменьшите размер текста */
+/*@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
+}*/
