@@ -14,6 +14,8 @@ def main_window():
     btn_exit.grid(column=6, row=0)
 
     #Head
+    lbl = Label(window, text="No", font=("Arial Bold", 14), width=3)
+    lbl.grid(column=0, row=1)
     lbl = Label(window, text="Специалист", font=("Arial Bold", 14), width=20)
     lbl.grid(column=1, row=1)
     lbl = Label(window, text="Кабинет", font=("Arial Bold", 14), width=10)
@@ -83,7 +85,56 @@ def add_button():
     print(dictionary)
 
 def edit_button():
-    pass
+    popup = Tk()
+    popup.wm_title("Редактирование позиции")
+    lbl = Label(popup, text="No", font=("Arial Bold", 14), width=3)
+    lbl.grid(column=0, row=1)
+    lbl = Label(popup, text="Специалист", font=("Arial Bold", 14), width=20)
+    lbl.grid(column=1, row=1)
+    lbl = Label(popup, text="Кабинет", font=("Arial Bold", 14), width=10)
+    lbl.grid(column=2, row=1)
+    lbl = Label(popup, text="ПН", font=("Arial Bold", 14), width=10)
+    lbl.grid(column=3, row=1)
+    lbl = Label(popup, text="ВТ", font=("Arial Bold", 14), width=10)
+    lbl.grid(column=4, row=1)
+    lbl = Label(popup, text="СР", font=("Arial Bold", 14), width=10)
+    lbl.grid(column=5, row=1)
+    lbl = Label(popup, text="ЧТ", font=("Arial Bold", 14), width=10)
+    lbl.grid(column=6, row=1)
+    lbl = Label(popup, text="ПТ", font=("Arial Bold", 14), width=10)
+    lbl.grid(column=7, row=1)
+    global number, spec, kab, mon, tue, wed, thu, fri
+    number = Entry(popup, width=3)
+    number.grid(column=0, row=2)
+    spec = Entry(popup, width=20)
+    spec.grid(column=1, row=2)
+    kab = Entry(popup, width=12)
+    kab.grid(column=2, row=2)
+    mon = Entry(popup, width=12)
+    mon.grid(column=3, row=2)
+    tue = Entry(popup, width=12)
+    tue.grid(column=4, row=2)
+    wed = Entry(popup, width=12)
+    wed.grid(column=5, row=2)
+    thu = Entry(popup, width=12)
+    thu.grid(column=6, row=2)
+    fri = Entry(popup, width=12)
+    fri.grid(column=7, row=2)
+    btn_change = Button(popup, text="Изменить!", width=20, command=change_item)
+    btn_change.grid(column=8, row=2)
+
+
+def change_item():
+    global number, spec, kab, mon, tue, wed, thu, fri
+    if int(number.get()) > len(dictionary) or int(number.get()) < 1:
+        print('Error')
+        pass
+    else:
+        dictionary[int(number.get())] = [spec.get(), kab.get(), mon.get(), thu.get(), wed.get(), tue.get(), fri.get()]
+    popup.destroy()
+
+    create_timetable()
+
 def delete_button():
     pass
 
