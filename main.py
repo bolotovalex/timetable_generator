@@ -37,11 +37,11 @@ def make_table_from_list(inlist):
     os.system(clear_command)
     No = int(1)
     table = PrettyTable()
-    table.field_names = ["No", "ФИО", "КАБ" ,"ПН", "ВТ", "СР", "ЧТ", "ПТ"]
+    table.field_names = ["No", "ФИО", "Спец", "КАБ" ,"ПН", "ВТ", "СР", "ЧТ", "ПТ"]
     for line in inlist:
         line = line.rstrip()
         line = line.split('%')
-        table.add_row([No, line[0], line[1], line[2], line[3], line[4], line[5], line[6]])
+        table.add_row([No, line[0], line[7], line[1], line[2], line[3], line[4], line[5], line[6]])
         No+=1
     print(table)
 
@@ -75,8 +75,22 @@ def commands():
 
 def add_item():
     os.system(clear_command)
-    print('Введите ФИО: ', end='')
+    print('Введите ФИО(макс 17 символов): ', end='')
     fio = input().strip()
+    while len(fio) > 17:
+        os.system(clear_command)
+        print('Недопустимое количество символов')
+        print('Введите ФИО(макс 17 символов): ', end='')
+        fio = input().strip()
+        
+    print('Введите специальность(макс 12 символов): ', end='')
+    spec = input().strip()
+    while len(spec) > 12:
+        os.system(clear_command)
+        print('Недопустимое количество символов')
+        print('Введите спецальность(макс 12 символов): ', end='')
+        spec = input().strip()
+
     print('Введите номер кабинета: ', end='')
     kab = input().strip()
     print('Введите время работы специалиста в ПОНЕДЕЛЬНИК(например 8:00-12:00): ', end='')
@@ -89,7 +103,9 @@ def add_item():
     thu = input().strip()
     print('Введите время работы специалиста в ПЯТНИЦУ(например 8:00-12:00): ', end='')
     fri = input().strip()
-    item_list.append(fio + "%" + kab + "%" + mon + "%" + tue + "%" + wed + "%" + thu + "%" + fri + '%' + '\n')
+    
+
+    item_list.append(fio + "%" + kab + "%" + mon + "%" + tue + "%" + wed + "%" + thu + "%" + fri + '%' + spec + '%' + '\n')
     save_file()
     main_menu()
 
@@ -101,8 +117,23 @@ def edit_item():
     print('Введите номер для редактирования: ', end='')
     number_for_edit = int(input())
     os.system(clear_command)
-    print('Введите ФИО: ', end='')
+    
+    print('Введите ФИО(макс 17 символов): ', end='')
     fio = input().strip()
+    while len(fio) > 17:
+        os.system(clear_command)
+        print('Недопустимое количество символов')
+        print('Введите ФИО(макс 17 символов): ', end='')
+        fio = input().strip()
+        
+    print('Введите специальность(макс 12 символов): ', end='')
+    spec = input().strip()
+    while len(spec) > 12:
+        os.system(clear_command)
+        print('Недопустимое количество символов')
+        print('Введите спецальность(макс 12 символов): ', end='')
+        spec = input().strip()
+    
     print('Введите номер кабинета: ', end='')
     kab = input().strip()
     print('Введите время работы специалиста в ПОНЕДЕЛЬНИК(например 8:00-12:00): ', end='')
@@ -115,7 +146,7 @@ def edit_item():
     thu = input().strip()
     print('Введите время работы специалиста в ПЯТНИЦУ(например 8:00-12:00): ', end='')
     fri = input().strip()
-    item_list[number_for_edit - 1] = fio + "%" + kab + "%" + mon + "%" + tue + "%" + wed + "%" + thu + "%" + fri + '%' + '\n'
+    item_list[number_for_edit - 1] = fio + "%" + kab + "%" + mon + "%" + tue + "%" + wed + "%" + thu + "%" + fri + '%' + spec + '%' + '\n'
     #item_list.append(fio + "%" + kab + "%" + mon + "%" + tue + "%" + wed + "%" + thu + "%" + fri + '%' + '\n')
     save_file()
     main_menu()
@@ -163,8 +194,9 @@ content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=
 <body>
 <header>
 <div class="header__row">
-<div class="header__name">Специалист</div>
-<div class="header__cabinet">Кабинет</div>
+<div class="header__name">ФИО</div>
+<div class="header__spec">Спец.</div>
+<div class="header__cabinet">Каб</div>
 <div class="header__day">Пн</div>
 <div class="header__day">Вт</div>
 <div class="header__day">Ср</div>
@@ -182,7 +214,7 @@ content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=
         line = item_list[i].split('%')
         if i % 10 == 0:
             raspisanie_section += '\n<div class="mySlides fade">\n'
-        raspisanie_section += (f'<div class="main__row">\n<div class="main__name">{line[0]}</div>\n<div class="main__cabinet">{line[1]}</div>\n<div class="main__time">{line[2]}</div>\n<div class="main__time">{line[3]}</div>\n<div class="main__time">{line[4]}</div>\n<div class="main__time">{line[5]}</div>\n<div class="main__time">{line[6]}</div>\n</div>\n')
+        raspisanie_section += (f'<div class="main__row">\n<div class="main__name">{line[0]}</div>\n<div class="main__spec">{line[7]}</div>\n<div class="main__cabinet">{line[1]}</div>\n<div class="main__time">{line[2]}</div>\n<div class="main__time">{line[3]}</div>\n<div class="main__time">{line[4]}</div>\n<div class="main__time">{line[5]}</div>\n<div class="main__time">{line[6]}</div>\n</div>\n')
         
         if i-k == 9 and i > 0:
             raspisanie_section += '</div>\n'
